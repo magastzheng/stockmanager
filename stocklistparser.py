@@ -56,19 +56,24 @@ class ChinaStockHTMLParser(HTMLParser):
     def split_stock_name_code(self, stockdata):
         result = stockdata.split('(')
         length = len(result)
+        print(length)
         
+        if length != 2:
+            print(result)
+            return
         for i in range(length):
             key = self.keys[i]
             value = result[i].replace(')','').strip()
             self.stock[key] = value
-        print(len(self.stock), self.stock)
+        #print(len(self.stock), self.stock)
         nstock = {}
-        for k, v in dict(self.stock) :
-            print(k)
-            print(v)
-            #nstock[k] = v
+        for k in self.stock:
+            #print(k)
+            #print(v)
+            nstock[k] = self.stock[k]
         
-        #stcode = nstock[self.keys[0]]
+        stcode = nstock[self.keys[1]]
+        #print(stcode)
         self.stocks[stcode] = nstock
 
 f = codecs.open("stock_agem", encoding="utf-8")
